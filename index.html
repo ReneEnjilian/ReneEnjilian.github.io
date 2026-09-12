@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="ML systems, LLM inference, and GPU computing. Selected work by René Enjilian, including Kairos and Apache SystemDS.">
+  <link rel="canonical" href="https://reneenjilian.github.io/">
+  <meta name="theme-color" content="#f8f7f3">
+  <title>René Enjilian — ML Systems Engineer</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%226%22%20fill%3D%22%23f8f7f3%22%2F%3E%3Cpath%20fill%3D%22%23315ac7%22%20d%3D%22M7%207h7v7H7zm11%200h7v7h-7zM7%2018h7v7H7zm11%200h7v7h-7z%22%2F%3E%3C%2Fsvg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&amp;family=DM+Serif+Display:ital@0;1&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+  <link rel="stylesheet" href="assets/css/styles.css">
+</head>
+<body>
+<div class="portfolio">
+  <a class="re-skip-link" href="#main-content">Skip to content</a>
+  <div class="re-shell">
+    <header class="re-nav">
+      <a class="re-brand" href="index.html" aria-label="René Enjilian, homepage">
+        <span class="re-brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+        René Enjilian
+      </a>
+      <nav class="re-links" aria-label="Main navigation">
+        <a href="index.html#re-work">Work</a>
+        <a href="index.html#re-about">About</a>
+        <a href="cv.html">CV <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+    <main id="main-content">
+      <section class="re-hero" aria-labelledby="re-name">
+        <p class="re-eyebrow">Machine learning · Systems · GPUs</p>
+        <h1 id="re-name">René Enjilian<span>.</span></h1>
+        <div class="re-hero-lower">
+          <div>
+            <p class="re-intro">I build systems for efficient<br>machine learning.</p>
+            <p class="re-intro-detail">Working across LLM serving, compilers, and GPU computing. Interested in what happens between a model and the hardware it runs on.</p>
+            <a class="re-hero-action" href="#re-work">Explore my work <span aria-hidden="true">↓</span></a>
+          </div>
+          <aside class="re-hero-meta" aria-label="Background">
+            <p class="re-eyebrow">Research & engineering</p>
+            <p>M.Sc. Computer Science</p>
+            <p>TU Berlin</p>
+            <p class="re-meta-gap">Apache SystemDS</p>
+            <p>Open-source committer</p>
+          </aside>
+        </div>
+      </section>
+
+      <section id="re-work" aria-labelledby="re-work-heading">
+        <div class="re-section-top"><h2 id="re-work-heading">Selected work</h2><span>01 — 02</span></div>
+        <article class="re-project">
+          <div>
+            <div class="re-project-label">01 / Master's thesis · 2026</div>
+            <h3>Kairos</h3>
+            <p class="re-project-description">Workload-aware LLM serving. Selecting and placing models to meet accuracy and latency targets on a single GPU.</p>
+            <div class="re-tags"><span>vLLM</span><span>Model scheduling</span><span>GPU memory</span></div>
+            <a class="re-project-open" href="projects/kairos.html">Explore project <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="re-art re-kairos-art" role="img" aria-label="Conceptual illustration of model placement across GPU, CPU, and SSD memory tiers">
+            <div class="re-art-heading">KAIROS / MODEL PLACEMENT</div>
+            <div class="re-memory" aria-hidden="true">
+              <div class="re-memory-row"><span class="re-memory-name">GPU</span><div class="re-memory-slots"><span class="re-slot-active"></span><span class="re-slot-active"></span><span class="re-slot-active"></span><span class="re-slot-active"></span><span class="re-slot-warm"></span><span class="re-slot-warm"></span><span class="re-slot-empty"></span><span class="re-slot-empty"></span></div></div>
+              <div class="re-memory-row"><span class="re-memory-name">CPU</span><div class="re-memory-slots"><span class="re-slot-warm"></span><span class="re-slot-warm"></span><span class="re-slot-warm"></span><span></span><span></span><span></span><span class="re-slot-empty"></span><span class="re-slot-empty"></span></div></div>
+              <div class="re-memory-row"><span class="re-memory-name">SSD</span><div class="re-memory-slots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="re-slot-empty"></span></div></div>
+            </div>
+            <div class="re-art-foot"><span>ADAPTIVE MODEL PLACEMENT</span><span>24 GB GPU</span></div>
+          </div>
+        </article>
+        <article class="re-project">
+          <div>
+            <div class="re-project-label">02 / Open source · Systems engineering</div>
+            <h3>Apache SystemDS</h3>
+            <p class="re-project-description">From compiler rewrites to GPU execution. Building the infrastructure behind large-scale machine learning and matrix operations.</p>
+            <div class="re-tags"><span>CUDA</span><span>Java / JNI</span><span>Sparse matrices</span></div>
+            <a class="re-project-open" href="projects/systemds.html">Explore contributions <span aria-hidden="true">↗</span></a>
+          </div>
+          <div class="re-art re-systemds-art" role="img" aria-label="Conceptual illustration of sparse matrix operations executed on a GPU">
+            <div class="re-art-heading">SYSTEMDS / GPU COMPUTING</div>
+            <div class="re-matrix-composition" aria-hidden="true">
+              <div class="re-matrix">
+                <span class="re-nonzero"></span><span></span><span></span><span class="re-nonzero"></span><span></span><span></span>
+                <span></span><span class="re-nonzero"></span><span></span><span></span><span></span><span class="re-nonzero"></span>
+                <span></span><span></span><span class="re-nonzero"></span><span></span><span class="re-nonzero"></span><span></span>
+                <span class="re-nonzero"></span><span></span><span></span><span class="re-nonzero"></span><span></span><span></span>
+                <span></span><span></span><span class="re-nonzero"></span><span></span><span class="re-nonzero"></span><span></span>
+                <span></span><span class="re-nonzero"></span><span></span><span></span><span></span><span class="re-nonzero"></span>
+              </div>
+              <span class="re-matrix-arrow">→</span>
+              <div class="re-chip"><span>GPU</span><span>CUDA</span></div>
+            </div>
+            <div class="re-art-foot"><span>SPARSE MATRICES → GPU EXECUTION</span><span>ASF</span></div>
+          </div>
+        </article>
+      </section>
+
+      
+      <!-- Add a Writing section once real articles are ready. -->
+      <section class="re-home-about" id="re-about" aria-labelledby="re-about-heading">
+        <div class="re-section-top"><h2 id="re-about-heading">A little background</h2><span>About</span></div>
+        <div class="re-about-layout">
+          <div class="re-about-copy"><p>I'm a computer science graduate from TU Berlin and an Apache SystemDS committer, with research experience at BIFOLD.</p></div>
+          <div class="re-about-copy"><p>My work connects machine learning with the compilers, runtimes, and hardware that make it practical.</p><a class="re-project-open" href="cv.html">View my background <span aria-hidden="true">↗</span></a></div>
+        </div>
+      </section>
+</main>
+    <footer class="re-footer">
+      <span>René Enjilian · Research &amp; engineering</span>
+      <a href="https://github.com/ReneEnjilian">GitHub <span aria-hidden="true">↗</span></a>
+      <a href="index.html">Back to home <span aria-hidden="true">↑</span></a>
+    </footer>
+  </div>
+</div>
+</body>
+</html>

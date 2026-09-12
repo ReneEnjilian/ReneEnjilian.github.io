@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Kairos: workload-aware, reconfigurable LLM serving built on vLLM, by René Enjilian.">
+  <link rel="canonical" href="https://reneenjilian.github.io/projects/kairos.html">
+  <meta name="theme-color" content="#f8f7f3">
+  <title>Kairos — René Enjilian</title>
+  <link rel="icon" type="image/svg+xml" href="data:image/svg+xml,%3Csvg%20xmlns%3D%22http%3A%2F%2Fwww.w3.org%2F2000%2Fsvg%22%20viewBox%3D%220%200%2032%2032%22%3E%3Crect%20width%3D%2232%22%20height%3D%2232%22%20rx%3D%226%22%20fill%3D%22%23f8f7f3%22%2F%3E%3Cpath%20fill%3D%22%23315ac7%22%20d%3D%22M7%207h7v7H7zm11%200h7v7h-7zM7%2018h7v7H7zm11%200h7v7h-7z%22%2F%3E%3C%2Fsvg%3E">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&amp;family=DM+Serif+Display:ital@0;1&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
+  <link rel="stylesheet" href="../assets/css/styles.css">
+</head>
+<body>
+<div class="portfolio">
+  <a class="re-skip-link" href="#main-content">Skip to content</a>
+  <div class="re-shell">
+    <header class="re-nav">
+      <a class="re-brand" href="../index.html" aria-label="René Enjilian, homepage">
+        <span class="re-brand-mark" aria-hidden="true"><span></span><span></span><span></span><span></span></span>
+        René Enjilian
+      </a>
+      <nav class="re-links" aria-label="Main navigation">
+        <a href="../index.html#re-work" aria-current="location">Work</a>
+        <a href="../index.html#re-about">About</a>
+        <a href="../cv.html">CV <span aria-hidden="true">↗</span></a>
+      </nav>
+    </header>
+    <main id="main-content" class="re-detail">
+      <a class="re-back" href="../index.html#re-work">← Back to selected work</a>
+      <p class="re-eyebrow">Master's thesis / TU Berlin / 2026</p>
+      <h1>Kairos<span>.</span></h1>
+      <p class="re-detail-intro" style="margin-top:24px">Workload-aware, reconfigurable LLM serving on a single GPU.</p>
+      <div class="re-tags"><span>vLLM</span><span>Model scheduling</span><span>GPU memory</span></div>
+      <div class="re-detail-art"><div class="re-art re-kairos-art" role="img" aria-label="Conceptual illustration of model placement across GPU, CPU, and SSD memory tiers">
+            <div class="re-art-heading">KAIROS / MODEL PLACEMENT</div>
+            <div class="re-memory" aria-hidden="true">
+              <div class="re-memory-row"><span class="re-memory-name">GPU</span><div class="re-memory-slots"><span class="re-slot-active"></span><span class="re-slot-active"></span><span class="re-slot-active"></span><span class="re-slot-active"></span><span class="re-slot-warm"></span><span class="re-slot-warm"></span><span class="re-slot-empty"></span><span class="re-slot-empty"></span></div></div>
+              <div class="re-memory-row"><span class="re-memory-name">CPU</span><div class="re-memory-slots"><span class="re-slot-warm"></span><span class="re-slot-warm"></span><span class="re-slot-warm"></span><span></span><span></span><span></span><span class="re-slot-empty"></span><span class="re-slot-empty"></span></div></div>
+              <div class="re-memory-row"><span class="re-memory-name">SSD</span><div class="re-memory-slots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="re-slot-empty"></span></div></div>
+            </div>
+            <div class="re-art-foot"><span>ADAPTIVE MODEL PLACEMENT</span><span>24 GB GPU</span></div>
+          </div></div>
+      <section class="re-detail-columns"><h3>The problem</h3><div><p>Different models offer different trade-offs between accuracy, latency, and memory use. As workloads change, a serving system needs to choose which model to run and where to keep the alternatives.</p></div></section>
+<section class="re-detail-columns"><h3>The system</h3><div><p>Kairos builds on vLLM to connect workload monitoring, model selection, and placement across GPU memory, host memory, and storage. Accuracy and latency targets guide its decisions.</p></div></section>
+<section class="re-detail-columns"><h3>My work</h3><div><ul><li>Model reconfiguration primitives for sleeping, waking, prefetching, and evicting model weights.</li><li>A planner that selects models and allocates memory according to workload and service targets.</li><li>Experiments on reconfiguration costs, model trade-offs, and end-to-end serving behavior.</li></ul></div></section>
+      <nav class="re-next-project" aria-label="Project navigation"><a href="../index.html#re-work">All work</a><a href="systemds.html">Apache SystemDS <span aria-hidden="true">→</span></a></nav>
+    </main>
+    <footer class="re-footer">
+      <span>René Enjilian · Research &amp; engineering</span>
+      <a href="https://github.com/ReneEnjilian">GitHub <span aria-hidden="true">↗</span></a>
+      <a href="../index.html">Back to home <span aria-hidden="true">↑</span></a>
+    </footer>
+  </div>
+</div>
+</body>
+</html>
