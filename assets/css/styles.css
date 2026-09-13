@@ -93,6 +93,10 @@ body { margin: 0; background: #f8f7f3; }
 .portfolio .re-back { background: none; border: 0; font-size: 12px; padding: 8px 0; margin-bottom: 47px; color: var(--re-muted); }
 .portfolio .re-detail h2 { font: 400 clamp(40px, 7vw, 68px)/1.12 'DM Serif Display', Georgia, serif; letter-spacing: -1.5px; margin: 12px 0 22px; }
 .portfolio .re-detail-intro { font-size: 21px; line-height: 1.6; max-width: 640px; }
+.portfolio .re-writing-intro { margin-top: 24px; }
+.portfolio .re-writing-index { margin: 46px 0 48px; }
+.portfolio .re-writing-index .re-section-top h2 { margin: 0; font: 500 14px/1.6 'DM Sans', Arial, sans-serif; letter-spacing: 0; }
+.portfolio .re-writing-empty { padding: 12px 0 24px; color: var(--re-muted); font-size: 16px; }
 .portfolio .re-detail-rule { margin: 34px 0; border: 0; border-top: 1px solid var(--re-rule); }
 .portfolio .re-detail-columns { display: grid; grid-template-columns: 150px 1fr; gap: 35px; }
 .portfolio .re-detail-columns p { color: var(--re-muted); font-size: 14px; line-height: 1.85; max-width: 560px; }

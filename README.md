@@ -25,13 +25,14 @@ The fonts are loaded from Google Fonts. If that service is unavailable or you ar
 | File | Contents |
 | --- | --- |
 | `index.html` | Homepage introduction, project previews, and about section |
+| `writing.html` | Index of technical articles; currently an empty state |
 | `projects/kairos.html` | Kairos project page |
 | `projects/systemds.html` | Apache SystemDS project page |
 | `cv.html` | Short HTML overview of education and experience |
 | `assets/css/styles.css` | Shared typography, colors, layout, and responsive styles |
 | `.nojekyll` | Tells GitHub Pages to serve the static files without Jekyll processing |
 
-Each HTML page is editable directly. The header and footer are repeated across four pages; update their links in all four when adding navigation items. Use relative links so the site works both at `username.github.io` and under `username.github.io/repository/`.
+Each HTML page is editable directly. The header and footer are repeated across all pages; update their links in every page when adding navigation items. Use relative links so the site works both at `username.github.io` and under `username.github.io/repository/`.
 
 ## Content status
 
@@ -41,17 +42,17 @@ This is the first implementation. The copy is an initial draft based on the proj
 - The CV page is an HTML overview; it does not claim to download a PDF.
 - Add the current CV PDF and its download link when available.
 - The footer links to [ReneEnjilian on GitHub](https://github.com/ReneEnjilian). Email, thesis, and Kairos source links are awaiting the exact URLs.
-- Writing is omitted until real articles are ready.
+- The Writing page is for technical articles and explanations. It has no published articles yet. When an article is ready, give it its own HTML page and add its title, publication date, short description, and link to the Writing index, replacing the empty-state message.
 - Project graphics are conceptual illustrations, not benchmark results.
 
 ## Publish with GitHub Pages
 
-1. Put these files at the repository root on a new branch, then open a pull request into `main`. Review and merge it when the site is ready to publish.
+1. Commit small, routine updates directly to `main`. Use a separate branch and pull request for major changes.
 2. Open the repository's [Settings → Pages](https://github.com/ReneEnjilian/ReneEnjilian.github.io/settings/pages).
 3. Set **Source** to **Deploy from a branch**, select **main** and **/(root)**, then save. If these settings are already selected, no change is needed.
 4. Check the Pages deployment in the [Actions tab](https://github.com/ReneEnjilian/ReneEnjilian.github.io/actions), then visit [reneenjilian.github.io](https://reneenjilian.github.io/).
 
-The files are already arranged at the repository root, including `.nojekyll` to skip Jekyll processing. Future changes merged into `main` will publish through the same Pages configuration. The pull request itself does not configure Pages.
+The files are already arranged at the repository root, including `.nojekyll` to skip Jekyll processing. Changes committed or merged into `main` will publish through the same Pages configuration.
 
 GitHub references: [Creating a GitHub Pages site](https://docs.github.com/en/pages/getting-started-with-github-pages/creating-a-github-pages-site) and [Configuring the publishing source](https://docs.github.com/en/pages/getting-started-with-github-pages/configuring-a-publishing-source-for-your-github-pages-site).
 
