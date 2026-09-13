@@ -55,6 +55,7 @@ body { margin: 0; background: #f8f7f3; }
 .portfolio .re-project-description { font-size: 14px; line-height: 1.8; color: var(--re-muted); margin-top: 13px; max-width: 390px; }
 .portfolio .re-tags { display: flex; flex-wrap: wrap; gap: 7px 17px; margin-top: 18px; color: var(--re-muted); font: 400 12px/1.5 'IBM Plex Mono', monospace; }
 .portfolio .re-project-open { background: none; border: 0; padding: 5px 0; margin-top: 20px; display: inline-flex; gap: 22px; align-items: center; font-size: 12px; }
+.portfolio .re-project-actions { display: flex; flex-wrap: wrap; column-gap: 24px; }
 .portfolio .re-project-open:hover { color: var(--re-blue); }
 .portfolio .re-art { min-width: 0; height: 248px; position: relative; overflow: hidden; display: flex; align-items: center; justify-content: center; }
 .portfolio .re-kairos-art { background: var(--re-blue-soft); }
