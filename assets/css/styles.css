@@ -208,3 +208,91 @@ body { margin: 0; background: #f8f7f3; }
   .portfolio .re-detail { padding-top: 0; }
   .portfolio .re-detail-columns { break-inside: avoid; }
 }
+
+/* Kairos homepage: approved model placement illustration. */
+#kairos-placement {
+  width: 100%;
+  max-width: 460px;
+  margin: 0 auto;
+  container: kairos-placement / inline-size;
+  color-scheme: light;
+  font: 400 12px/1.5 'IBM Plex Mono', monospace;
+  -webkit-font-smoothing: antialiased;
+}
+#kairos-placement * { box-sizing: border-box; }
+#kairos-placement .kp-art {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  min-height: 248px;
+  padding: 16px 18px;
+  background: #e8edf6;
+  color: #4c6084;
+}
+#kairos-placement .kp-heading { font: inherit; }
+#kairos-placement .kp-memory {
+  display: grid;
+  gap: 8px;
+  width: 90%;
+  align-self: center;
+}
+#kairos-placement .kp-row {
+  display: grid;
+  grid-template-columns: 29px minmax(0, 1fr);
+  align-items: center;
+  gap: 12px;
+  min-height: 44px;
+  padding: 5px 10px;
+  border: 1px solid #bbc9e3;
+  background: #f5f7fc;
+}
+#kairos-placement .kp-tier { color: #475b82; }
+#kairos-placement .kp-models {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 5px;
+  min-width: 0;
+}
+#kairos-placement .kp-models-cpu { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+#kairos-placement .kp-model {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 2px 3px;
+  min-height: 32px;
+  background: #d5deef;
+  color: #475b82;
+  text-align: center;
+  white-space: nowrap;
+}
+#kairos-placement .kp-variant { font-size: 11px; line-height: 1.35; }
+#kairos-placement .kp-resident { background: #b7c7e4; }
+#kairos-placement .kp-active { background: #315ac7; color: #ffffff; }
+#kairos-placement .kp-checkpoints {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 32px;
+  padding: 3px 6px;
+  background: #e6ebf5;
+  color: #475b82;
+  text-align: center;
+}
+#kairos-placement .kp-foot {
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 4px 14px;
+  font: inherit;
+  letter-spacing: .4px;
+}
+@container kairos-placement (max-width: 419px) {
+  #kairos-placement .kp-memory { width: 100%; }
+  #kairos-placement .kp-models-cpu { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+}
+@container kairos-placement (max-width: 310px) {
+  #kairos-placement .kp-row { grid-template-columns: minmax(0, 1fr); gap: 5px; }
+  #kairos-placement .kp-variant { white-space: normal; }
+}

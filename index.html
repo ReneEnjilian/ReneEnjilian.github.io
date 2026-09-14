@@ -63,14 +63,33 @@
               <a class="re-project-open" href="https://github.com/ReneEnjilian/kairos" target="_blank" rel="noopener noreferrer" style="gap: 6px;">Code <span aria-hidden="true">↗</span></a>
             </div>
           </div>
-          <div class="re-art re-kairos-art" role="img" aria-label="Conceptual illustration of model placement across GPU, CPU, and SSD memory tiers">
-            <div class="re-art-heading">KAIROS / MODEL PLACEMENT</div>
-            <div class="re-memory" aria-hidden="true">
-              <div class="re-memory-row"><span class="re-memory-name">GPU</span><div class="re-memory-slots"><span class="re-slot-active"></span><span class="re-slot-active"></span><span class="re-slot-active"></span><span class="re-slot-active"></span><span class="re-slot-warm"></span><span class="re-slot-warm"></span><span class="re-slot-empty"></span><span class="re-slot-empty"></span></div></div>
-              <div class="re-memory-row"><span class="re-memory-name">CPU</span><div class="re-memory-slots"><span class="re-slot-warm"></span><span class="re-slot-warm"></span><span class="re-slot-warm"></span><span></span><span></span><span></span><span class="re-slot-empty"></span><span class="re-slot-empty"></span></div></div>
-              <div class="re-memory-row"><span class="re-memory-name">SSD</span><div class="re-memory-slots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="re-slot-empty"></span></div></div>
+          <div id="kairos-placement">
+            <div class="kp-art" role="img" aria-label="Illustrative Kairos placement: GPU memory holds Llama 8B BF16 and an active Llama 8B INT8 model. Host memory holds four models: Llama 8B FP8, Llama 8B INT4, Llama 3B BF16, and Qwen 4B BF16. Model checkpoint files are stored on SSD.">
+              <div class="kp-heading" aria-hidden="true">KAIROS</div>
+              <div class="kp-memory" aria-hidden="true">
+                <div class="kp-row">
+                  <span class="kp-tier">GPU</span>
+                  <div class="kp-models">
+                    <div class="kp-model kp-resident"><span>Llama 8B</span><span class="kp-variant">BF16</span></div>
+                    <div class="kp-model kp-active"><span>Llama 8B</span><span class="kp-variant">INT8 / active</span></div>
+                  </div>
+                </div>
+                <div class="kp-row">
+                  <span class="kp-tier">CPU</span>
+                  <div class="kp-models kp-models-cpu">
+                    <div class="kp-model"><span>Llama 8B</span><span class="kp-variant">FP8</span></div>
+                    <div class="kp-model"><span>Llama 8B</span><span class="kp-variant">INT4</span></div>
+                    <div class="kp-model"><span>Llama 3B</span><span class="kp-variant">BF16</span></div>
+                    <div class="kp-model"><span>Qwen 4B</span><span class="kp-variant">BF16</span></div>
+                  </div>
+                </div>
+                <div class="kp-row">
+                  <span class="kp-tier">SSD</span>
+                  <div class="kp-checkpoints">Model checkpoints</div>
+                </div>
+              </div>
+              <div class="kp-foot" aria-hidden="true"><span>ADAPTIVE MODEL PLACEMENT</span></div>
             </div>
-            <div class="re-art-foot"><span>ADAPTIVE MODEL PLACEMENT</span><span>24 GB GPU</span></div>
           </div>
         </article>
         <article class="re-project">
