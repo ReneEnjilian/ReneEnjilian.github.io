@@ -49,6 +49,12 @@
             <img src="../assets/images/relative_accuracy_quantized.svg" alt="Relative accuracy of BF16, FP8, INT8, INT4, and NF4 Llama-3.1-8B-Instruct variants on BoolQ, LogiQA, MMLU, and OpenBookQA, with BF16 normalized to 1." width="1400" height="628" style="display: block; width: 100%; max-width: 560px; height: auto; margin: 0;" loading="lazy">
           </a>
           <figcaption><p style="margin-top: 20px;">The first plot shows the accuracy of quantized Llama-3.1-8B-Instruct variants relative to the BF16 baseline across different tasks. FP8 and INT8 quantization preserve accuracy or even exceed the baseline in these benchmarks. The INT4 variant also outperforms the baseline on LogiQA.</p></figcaption>
+        </figure>
+        <figure style="margin: 32px 0 0;">
+          <a href="../assets/pdf/p95_latency_quantized.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open quantized model latency plot as PDF">
+            <img src="../assets/images/p95_latency_quantized.svg" alt="p95 inference latency of BF16, FP8, INT8, INT4, and NF4 Llama-3.1-8B-Instruct variants at 2, 5, and 10 requests per second on BoolQ, LogiQA, MMLU, and OpenBookQA." width="1400" height="975" style="display: block; width: 100%; max-width: 560px; height: auto; margin: 0;" loading="lazy">
+          </a>
+          <figcaption><p style="margin-top: 20px;">The next plot compares inference latency across request rates of 2, 5, and 10 requests per second. INT8 and INT4 quantization reduce latency, with INT8 performing consistently better under higher load. FP8 offers limited improvement on the GPU used in these experiments, while NF4 has the highest latency despite its smaller memory footprint.</p></figcaption>
         </figure></div></section>
       <nav class="re-next-project" aria-label="Project navigation"><a href="../index.html#re-work">All work</a><a href="systemds.html">Apache SystemDS <span aria-hidden="true">→</span></a></nav>
     </main>
