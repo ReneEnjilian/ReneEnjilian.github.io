@@ -35,15 +35,6 @@
       <h1>Kairos<span>.</span></h1>
       <p class="re-detail-intro" style="margin-top:24px">Workload-aware, reconfigurable LLM serving on a single GPU.</p>
       <div class="re-tags"><span>vLLM</span><span>Model scheduling</span><span>GPU memory</span></div>
-      <div class="re-detail-art"><div class="re-art re-kairos-art" role="img" aria-label="Conceptual illustration of model placement across GPU, CPU, and SSD memory tiers">
-            <div class="re-art-heading">KAIROS / MODEL PLACEMENT</div>
-            <div class="re-memory" aria-hidden="true">
-              <div class="re-memory-row"><span class="re-memory-name">GPU</span><div class="re-memory-slots"><span class="re-slot-active"></span><span class="re-slot-active"></span><span class="re-slot-active"></span><span class="re-slot-active"></span><span class="re-slot-warm"></span><span class="re-slot-warm"></span><span class="re-slot-empty"></span><span class="re-slot-empty"></span></div></div>
-              <div class="re-memory-row"><span class="re-memory-name">CPU</span><div class="re-memory-slots"><span class="re-slot-warm"></span><span class="re-slot-warm"></span><span class="re-slot-warm"></span><span></span><span></span><span></span><span class="re-slot-empty"></span><span class="re-slot-empty"></span></div></div>
-              <div class="re-memory-row"><span class="re-memory-name">SSD</span><div class="re-memory-slots"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span class="re-slot-empty"></span></div></div>
-            </div>
-            <div class="re-art-foot"><span>ADAPTIVE MODEL PLACEMENT</span><span>24 GB GPU</span></div>
-          </div></div>
       <section class="re-detail-columns"><h3>Problem and goal</h3><div>
         <p>Different models and their quantized variants offer different trade-offs between accuracy, latency, and memory consumption. Models with fewer parameters or lower numerical precision may reduce latency and GPU memory pressure, but can also affect output quality. In a static serving configuration, the model and its hardware placement are chosen ahead of time. However, request workloads, serving objectives, and resource pressure may change during runtime.</p>
         <p>A serving system should therefore determine which model should answer requests given accuracy and latency constraints, where model weights should reside, and when adaptation should take place while minimizing interference with ongoing serving.</p>
