@@ -41,7 +41,10 @@
       </div></section>
 <section class="re-detail-columns"><h3>The system</h3><div><p>Built on an extended vLLM runtime, Kairos continuously samples the live request stream, evaluates candidate models on observed workload data, and uses the resulting statistics to adapt the serving configuration at runtime. It can switch the actively serving model, move model weights between GPU memory, host memory, and disk, and delay disruptive reconfiguration commands until forecast idle windows on the GPU.</p></div></section>
 <section class="re-detail-columns"><h3>Motivating benchmarks</h3><div><p>To motivate Kairos, we first examine whether quantized variants of the base model and smaller independent models can reduce inference latency while satisfying the accuracy constraint. We evaluate each model independently of the full Kairos system, measuring accuracy relative to the base model and inference latency under different request rates. These benchmarks establish whether runtime model selection has useful alternatives to choose from.</p>
-        <figure style="margin: 28px 0 0;">
+      </div></section>
+      <section class="re-detail-columns" aria-labelledby="quantization-heading">
+        <h4 id="quantization-heading" style="margin: 0; color: var(--re-muted); font: 400 12px/1.5 'IBM Plex Mono', monospace;">Quantization</h4>
+        <div><figure style="margin: 0;">
           <a href="../assets/pdf/relative_accuracy_quantized.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open relative accuracy plot as PDF">
             <img src="../assets/images/relative_accuracy_quantized.svg" alt="Relative accuracy of BF16, FP8, INT8, INT4, and NF4 Llama-3.1-8B-Instruct variants on BoolQ, LogiQA, MMLU, and OpenBookQA, with BF16 normalized to 1." width="1400" height="628" style="display: block; width: 100%; max-width: 560px; height: auto; margin: 0;" loading="lazy">
           </a>
