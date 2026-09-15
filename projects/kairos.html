@@ -63,6 +63,12 @@
             <img src="../assets/images/relative_accuracy_independent.svg" alt="Relative accuracy of Llama-8B, OLMoE-1B-7B, Qwen-7B, and Qwen-4B on BoolQ, LogiQA, MMLU, and OpenBookQA, with Llama-8B normalized to 1." width="1400" height="628" style="display: block; width: 100%; max-width: 560px; height: auto; margin: 0;" loading="lazy">
           </a>
           <figcaption><p style="margin-top: 20px;">The next plot compares independent models against the Llama-3.1-8B-Instruct baseline. Despite having only 7B and 4B parameters, the Qwen models outperform the 8B baseline on several tasks. OLMoE, a mixture-of-experts model with 7B total but only 1B active parameters, performs worse across all evaluated tasks, suggesting that this reduction in active parameters is too aggressive to preserve accuracy here.</p></figcaption>
+        </figure>
+        <figure style="margin: 32px 0 0;">
+          <a href="../assets/pdf/p95_latency_independent.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open independent model latency plot as PDF">
+            <img src="../assets/images/p95_latency_independent.svg" alt="p95 inference latency of Llama-8B, OLMoE-1B-7B, Qwen-7B, and Qwen-4B at 2, 5, and 10 requests per second on BoolQ, LogiQA, MMLU, and OpenBookQA." width="1400" height="975" style="display: block; width: 100%; max-width: 560px; height: auto; margin: 0;" loading="lazy">
+          </a>
+          <figcaption><p style="margin-top: 20px;">The next plot compares inference latency for the independent models. Qwen-7B is generally slightly faster than the Llama-8B baseline, while Qwen-4B achieves substantially lower latency. OLMoE also provides low latency through its sparse execution with only 1B active parameters. Combined with the accuracy results, Qwen-4B offers a particularly promising alternative, improving both accuracy and latency over the baseline.</p></figcaption>
         </figure></div>
       </section>
       <nav class="re-next-project" aria-label="Project navigation"><a href="../index.html#re-work">All work</a><a href="systemds.html">Apache SystemDS <span aria-hidden="true">→</span></a></nav>
