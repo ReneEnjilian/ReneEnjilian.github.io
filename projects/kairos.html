@@ -71,6 +71,18 @@
           <figcaption><p style="margin-top: 20px;">The next plot compares inference latency for the independent models. Qwen-7B is generally slightly faster than the Llama-8B baseline, while Qwen-4B achieves substantially lower latency. OLMoE also provides low latency through its sparse execution with only 1B active parameters. Combined with the accuracy results, Qwen-4B offers a particularly promising alternative, improving both accuracy and latency over the baseline.</p></figcaption>
         </figure></div>
       </section>
+      <section class="re-detail-columns" aria-labelledby="design-principles-heading">
+        <h3 id="design-principles-heading">Design principles</h3>
+        <div>
+          <p>Kairos follows three design principles that guide its architecture and approach to workload-aware and reconfigurable serving.</p>
+          <h4 style="margin: 24px 0 8px; font-size: 16px; font-weight: 500;">P1 — Continuous monitoring</h4>
+          <p>The system continuously samples incoming requests to compare candidate models against accuracy and latency objectives on the observed workload. This monitoring helps detect changes in workload characteristics and provides the information needed to adapt model selection and placement.</p>
+          <h4 style="margin: 24px 0 8px; font-size: 16px; font-weight: 500;">P2 — Runtime reconfigurability</h4>
+          <p>The serving configuration should remain adaptable during operation. Guided by monitoring results, the system should support controlled changes to model selection and placement while continuing to serve requests, responding to changing workloads, objective violations, or resource constraints.</p>
+          <h4 style="margin: 24px 0 8px; font-size: 16px; font-weight: 500;">P3 — Interference-aware scheduling</h4>
+          <p>Adaptation actions must be coordinated with ongoing request processing. Since model evaluation and weight transfers consume resources and can affect serving latency, the system should use workload patterns and system state to identify and forecast idle periods on the GPU. Scheduling these actions during such periods minimizes interference with active serving.</p>
+        </div>
+      </section>
       <nav class="re-next-project" aria-label="Project navigation"><a href="../index.html#re-work">All work</a><a href="systemds.html">Apache SystemDS <span aria-hidden="true">→</span></a></nav>
     </main>
     <footer class="re-footer">
