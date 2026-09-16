@@ -12,6 +12,21 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&amp;family=DM+Serif+Display:ital@0;1&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
   <link rel="stylesheet" href="../assets/css/styles.css">
+  <style>
+    #vllm-extensions .re-commands-content { min-width: 0; }
+    #vllm-extensions .re-commands-table { width: 100%; max-width: 560px; border-collapse: collapse; table-layout: fixed; text-align: left; font-size: 14px; line-height: 1.65; }
+    #vllm-extensions caption { padding: 0 0 14px; text-align: left; color: var(--re-muted); font: 400 12px/1.6 'IBM Plex Mono', monospace; }
+    #vllm-extensions .re-command-swatch { display: inline-block; width: 12px; height: 12px; margin-right: 7px; vertical-align: -1px; background: #eaf1e5; border: 1px solid #c6d5bd; }
+    #vllm-extensions th, #vllm-extensions td { padding: 13px 12px; border-bottom: 1px solid var(--re-rule); vertical-align: top; overflow-wrap: anywhere; }
+    #vllm-extensions thead th { border-top: 1px solid var(--re-rule); font-size: 12px; font-weight: 500; }
+    #vllm-extensions tbody th { font-weight: 400; }
+    #vllm-extensions code { font: 400 12px/1.65 'IBM Plex Mono', monospace; }
+    #vllm-extensions td { color: var(--re-muted); }
+    #vllm-extensions .re-command-added { background: #eaf1e5; }
+    @media (max-width: 540px) {
+      #vllm-extensions th, #vllm-extensions td { padding: 11px 8px; }
+    }
+  </style>
 </head>
 <body>
 <div class="portfolio">
@@ -81,6 +96,50 @@
           <p>The serving configuration should remain adaptable during operation. Guided by monitoring results, the system should support controlled changes to model selection and placement while continuing to serve requests, responding to changing workloads, objective violations, or resource constraints.</p>
           <h4 style="margin: 24px 0 8px; font-size: 16px; font-weight: 500;">P3 — Interference-aware scheduling</h4>
           <p>Adaptation actions must be coordinated with ongoing request processing. Since model evaluation and weight transfers consume resources and can affect serving latency, the system should use workload patterns and system state to identify and forecast idle periods on the GPU. Scheduling these actions during such periods minimizes interference with active serving.</p>
+        </div>
+      </section>
+      <section id="vllm-extensions" class="re-detail-columns" aria-labelledby="vllm-extensions-heading">
+        <h3 id="vllm-extensions-heading">Extending vLLM</h3>
+        <div class="re-commands-content">
+          <table class="re-commands-table">
+            <caption><span class="re-command-swatch" aria-hidden="true"></span>Green rows indicate Kairos extensions.</caption>
+            <colgroup><col style="width: 42%;"><col style="width: 58%;"></colgroup>
+            <thead><tr><th scope="col">Kairos command</th><th scope="col">Description</th></tr></thead>
+            <tbody>
+              <tr>
+                <th scope="row"><code>L1_<wbr>SLEEP</code></th>
+                <td>Offloads model weights to CPU memory and discards the KV cache.</td>
+              </tr>
+              <tr>
+                <th scope="row"><code>L2_<wbr>SLEEP</code></th>
+                <td>Discards model weights and the KV cache, retaining the existing checkpoint on disk.</td>
+              </tr>
+              <tr>
+                <th scope="row"><code>WAKE_<wbr>UP_<wbr>FROM_<wbr>CPU</code></th>
+                <td>Restores offloaded weights from CPU memory to GPU memory.</td>
+              </tr>
+              <tr>
+                <th scope="row"><code>WAKE_<wbr>UP_<wbr>FROM_<wbr>DISK</code></th>
+                <td>Allocates GPU memory, reloads weights from disk, and resets the prefix cache.</td>
+              </tr>
+              <tr class="re-command-added">
+                <th scope="row" aria-label="WAKE_UP_PERSISTENT, Kairos extension"><code>WAKE_<wbr>UP_<wbr>PERSISTENT</code></th>
+                <td>Restores weights to the GPU while keeping their CPU copy, avoiding a copy back during subsequent sleep.</td>
+              </tr>
+              <tr class="re-command-added">
+                <th scope="row" aria-label="PREFETCH, Kairos extension"><code>PREFETCH</code></th>
+                <td>Loads weights from disk into pinned CPU memory ahead of a later GPU transfer.</td>
+              </tr>
+              <tr class="re-command-added">
+                <th scope="row" aria-label="WAKE_UP_FROM_PREFETCH, Kairos extension"><code>WAKE_<wbr>UP_<wbr>FROM_<wbr>PREFETCH</code></th>
+                <td>Loads prefetched weights from pinned CPU memory into GPU memory.</td>
+              </tr>
+              <tr class="re-command-added">
+                <th scope="row" aria-label="EVICT, Kairos extension"><code>EVICT</code></th>
+                <td>Releases CPU-resident weights directly, leaving the existing checkpoint on disk.</td>
+              </tr>
+            </tbody>
+          </table>
         </div>
       </section>
       <nav class="re-next-project" aria-label="Project navigation"><a href="../index.html#re-work">All work</a><a href="systemds.html">Apache SystemDS <span aria-hidden="true">→</span></a></nav>
