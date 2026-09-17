@@ -14,7 +14,7 @@
   <link rel="stylesheet" href="../assets/css/styles.css">
   <style>
     #vllm-extensions .re-commands-content { min-width: 0; }
-    #vllm-extensions .re-commands-table { width: 100%; max-width: 560px; border-collapse: collapse; table-layout: fixed; text-align: left; font-size: 14px; line-height: 1.65; }
+    #vllm-extensions .re-commands-table, #vllm-extensions .re-models-table { width: 100%; max-width: 560px; border-collapse: collapse; table-layout: fixed; text-align: left; font-size: 14px; line-height: 1.65; }
     #vllm-extensions caption { padding: 0 0 14px; text-align: left; color: var(--re-muted); font: 400 12px/1.6 'IBM Plex Mono', monospace; }
     #vllm-extensions .re-command-swatch { display: inline-block; width: 12px; height: 12px; margin-right: 7px; vertical-align: -1px; background: #eaf1e5; border: 1px solid #c6d5bd; }
     #vllm-extensions th, #vllm-extensions td { padding: 13px 12px; border-bottom: 1px solid var(--re-rule); vertical-align: top; overflow-wrap: anywhere; }
@@ -166,6 +166,17 @@
               </tr>
             </tbody>
           </table>
+          <table class="re-models-table" style="margin-top: 32px;">
+            <caption>Models used in the transition benchmarks</caption>
+            <colgroup><col style="width: 70%;"><col style="width: 30%;"></colgroup>
+            <thead><tr><th scope="col">Model</th><th scope="col">Parameters</th></tr></thead>
+            <tbody>
+              <tr><th scope="row">Llama-3.2-1B-Instruct</th><td>1B</td></tr>
+              <tr><th scope="row">Llama-3.2-3B-Instruct</th><td>3B</td></tr>
+              <tr><th scope="row">Llama-3.1-8B-Instruct</th><td>8B</td></tr>
+            </tbody>
+          </table>
+          <p style="margin-top: 20px;">The results below use these models to compare sleep, wake-up, and eviction operations.</p>
         </div>
         <details id="sleep-mechanisms" class="re-benchmark-disclosure">
           <summary>
