@@ -248,6 +248,12 @@
           </div>
         </details>
       </section>
+      <section id="runtime-reconfiguration" class="re-detail-columns" aria-labelledby="runtime-reconfiguration-heading">
+        <h3 id="runtime-reconfiguration-heading">Runtime reconfiguration</h3>
+        <div>
+          <p>The reconfiguration component translates monitoring results into concrete changes to the serving configuration. After each monitoring round, Kairos uses the updated accuracy and latency statistics, the current model placement, and the configured SLOs to determine how the system should adapt. It decides which model should serve future requests, which additional models should remain close to the GPU, and which models should be evaluated on the collected samples. The result is a sequence of control commands that implements these decisions while respecting the available memory capacity.</p>
+        </div>
+      </section>
       <nav class="re-next-project" aria-label="Project navigation"><a href="../index.html#re-work">All work</a><a href="systemds.html">Apache SystemDS <span aria-hidden="true">→</span></a></nav>
     </main>
     <footer class="re-footer">
