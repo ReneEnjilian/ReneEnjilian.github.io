@@ -223,6 +223,31 @@
           </div>
         </details>
       </section>
+      <section id="system-architecture" class="re-detail-columns" aria-labelledby="system-architecture-heading">
+        <h3 id="system-architecture-heading">System architecture</h3>
+        <div style="min-width: 0; max-width: 560px;">
+          <p>Kairos is organized into four layers that separate client request handling, communication between processes, system orchestration, and inference.</p>
+          <ul style="margin-top: 20px;">
+            <li><strong style="font-weight: 500;">KairosAPI</strong> is the external entry point for client requests. It validates incoming inference requests, adds metadata such as the arrival timestamp, forwards them to KairosCore through the IPC layer, and returns the results to clients.</li>
+            <li><strong style="font-weight: 500;">Inter-process communication (IPC)</strong> connects the API and Core processes. It transports inference requests to the Core and routes responses back to the corresponding pending client requests.</li>
+            <li><strong style="font-weight: 500;">KairosCore</strong> contains the central orchestration logic. Its controller dispatches requests to the active model and executes control commands. Monitoring collects workload samples and model statistics, which the reconfiguration component uses to select models and determine their placement. The scheduler forecasts GPU idle windows and schedules model evaluations and weight transfers to minimize interference with ongoing serving. A shared model catalog maintains model metadata and current placement.</li>
+            <li><strong style="font-weight: 500;">vLLM</strong> executes inference and exposes the model swapping primitives described above. These allow KairosCore to move or release model weights across GPU memory, host memory, and disk while keeping the model servers running.</li>
+          </ul>
+        </div>
+        <details id="architecture-diagram" class="re-benchmark-disclosure">
+          <summary>
+            <h4 id="architecture-diagram-heading">Architecture diagram</h4>
+            <span class="re-benchmark-toggle" aria-hidden="true"></span>
+          </summary>
+          <div class="re-benchmark-body">
+            <figure style="margin: 0;">
+              <a href="../assets/pdf/kairos_architecture.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open Kairos architecture diagram as PDF" style="display: block;">
+                <img src="../assets/images/kairos_architecture.svg" alt="Kairos system architecture. Client requests pass through KairosAPI and the IPC layer to KairosCore. Within the Core, the controller coordinates monitoring, reconfiguration, scheduling, the model catalog, and the vLLM interface. The interface sends inference and model placement commands to the vLLM model servers." width="1329" height="1800" style="display: block; width: 100%; max-width: 560px; height: auto; margin: 0;" loading="lazy">
+              </a>
+            </figure>
+          </div>
+        </details>
+      </section>
       <nav class="re-next-project" aria-label="Project navigation"><a href="../index.html#re-work">All work</a><a href="systemds.html">Apache SystemDS <span aria-hidden="true">→</span></a></nav>
     </main>
     <footer class="re-footer">
