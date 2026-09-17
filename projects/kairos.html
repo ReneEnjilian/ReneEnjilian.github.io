@@ -166,8 +166,8 @@
               </tr>
             </tbody>
           </table>
-          <table class="re-models-table" style="margin-top: 32px;">
-            <caption>Llama 3 models across three different sizes.</caption>
+          <p style="margin-top: 32px;">The results below use these models to compare sleep, wake-up, and eviction operations.</p>
+          <table class="re-models-table" style="margin-top: 20px;">
             <colgroup><col style="width: 50%;"><col style="width: 22%;"><col style="width: 28%;"></colgroup>
             <thead><tr><th scope="col">Model</th><th scope="col">Parameters</th><th scope="col">GPU footprint (MiB)</th></tr></thead>
             <tbody>
@@ -176,8 +176,6 @@
               <tr><th scope="row">Llama-3.1-8B-Instruct</th><td>8B</td><td>21,894</td></tr>
             </tbody>
           </table>
-          <p style="margin-top: 12px; font-size: 14px;">We assume a <code>gpu_factor</code> of 1.3 to realistically accommodate for KV cache and activations besides model weights.</p>
-          <p style="margin-top: 20px;">The results below use these models to compare sleep, wake-up, and eviction operations.</p>
         </div>
         <details id="sleep-mechanisms" class="re-benchmark-disclosure">
           <summary>
