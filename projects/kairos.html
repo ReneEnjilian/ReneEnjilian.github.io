@@ -26,6 +26,19 @@
     @media (max-width: 540px) {
       #vllm-extensions th, #vllm-extensions td { padding: 11px 8px; }
     }
+
+    .portfolio .re-benchmark-disclosure { grid-column: 1 / -1; min-width: 0; width: 100%; max-width: 745px; }
+    .portfolio .re-benchmark-disclosure > summary { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 44px; padding: 10px 0; border-bottom: 1px solid var(--re-rule); color: var(--re-muted); cursor: pointer; list-style: none; }
+    .portfolio .re-benchmark-disclosure > summary::-webkit-details-marker { display: none; }
+    .portfolio .re-benchmark-disclosure > summary h4 { margin: 0; font: 400 12px/1.5 'IBM Plex Mono', monospace; }
+    .portfolio .re-benchmark-disclosure > summary:hover { color: var(--re-blue); }
+    .portfolio .re-benchmark-toggle { flex: 0 0 20px; text-align: center; font: 400 20px/1 'IBM Plex Mono', monospace; }
+    .portfolio .re-benchmark-toggle::before { content: "+"; }
+    .portfolio .re-benchmark-disclosure[open] > summary .re-benchmark-toggle::before { content: "−"; }
+    .portfolio .re-benchmark-body { margin: 20px 0 0 185px; max-width: 560px; min-width: 0; }
+    @media (max-width: 540px) {
+      .portfolio .re-benchmark-body { margin-left: 0; }
+    }
   </style>
 </head>
 <body>
@@ -58,8 +71,12 @@
 <section class="re-detail-columns"><h3>Motivating benchmarks</h3><div><p>To motivate Kairos, we first examine whether quantized variants of the base model and smaller independent models can reduce inference latency while satisfying the accuracy constraint. We evaluate each model independently of the full Kairos system, measuring accuracy relative to the base model and inference latency under different request rates. These benchmarks establish whether runtime model selection has useful alternatives to choose from.</p>
       </div></section>
       <section class="re-detail-columns" aria-labelledby="quantization-heading">
-        <h4 id="quantization-heading" style="margin: 0; color: var(--re-muted); font: 400 12px/1.5 'IBM Plex Mono', monospace;">Quantization</h4>
-        <div><figure style="margin: 0;">
+        <details class="re-benchmark-disclosure">
+          <summary>
+            <h4 id="quantization-heading">Quantization</h4>
+            <span class="re-benchmark-toggle" aria-hidden="true"></span>
+          </summary>
+          <div class="re-benchmark-body"><figure style="margin: 0;">
           <a href="../assets/pdf/relative_accuracy_quantized.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open relative accuracy plot as PDF">
             <img src="../assets/images/relative_accuracy_quantized.svg" alt="Relative accuracy of BF16, FP8, INT8, INT4, and NF4 Llama-3.1-8B-Instruct variants on BoolQ, LogiQA, MMLU, and OpenBookQA, with BF16 normalized to 1." width="1400" height="628" style="display: block; width: 100%; max-width: 560px; height: auto; margin: 0;" loading="lazy">
           </a>
@@ -70,10 +87,16 @@
             <img src="../assets/images/p95_latency_quantized.svg" alt="p95 inference latency of BF16, FP8, INT8, INT4, and NF4 Llama-3.1-8B-Instruct variants at 2, 5, and 10 requests per second on BoolQ, LogiQA, MMLU, and OpenBookQA." width="1400" height="975" style="display: block; width: 100%; max-width: 560px; height: auto; margin: 0;" loading="lazy">
           </a>
           <figcaption><p style="margin-top: 20px;">The next plot compares inference latency across request rates of 2, 5, and 10 requests per second. INT8 and INT4 quantization reduce latency, with INT8 performing consistently better under higher load. FP8 offers limited improvement on the GPU used in these experiments, while NF4 has the highest latency despite its smaller memory footprint.</p></figcaption>
-        </figure></div></section>
+        </figure></div>
+        </details>
+      </section>
       <section class="re-detail-columns" aria-labelledby="independent-models-heading">
-        <h4 id="independent-models-heading" style="margin: 0; color: var(--re-muted); font: 400 12px/1.5 'IBM Plex Mono', monospace;">Independent models</h4>
-        <div><figure style="margin: 0;">
+        <details class="re-benchmark-disclosure">
+          <summary>
+            <h4 id="independent-models-heading">Independent models</h4>
+            <span class="re-benchmark-toggle" aria-hidden="true"></span>
+          </summary>
+          <div class="re-benchmark-body"><figure style="margin: 0;">
           <a href="../assets/pdf/relative_accuracy_independent.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open independent model accuracy plot as PDF">
             <img src="../assets/images/relative_accuracy_independent.svg" alt="Relative accuracy of Llama-8B, OLMoE-1B-7B, Qwen-7B, and Qwen-4B on BoolQ, LogiQA, MMLU, and OpenBookQA, with Llama-8B normalized to 1." width="1400" height="628" style="display: block; width: 100%; max-width: 560px; height: auto; margin: 0;" loading="lazy">
           </a>
@@ -85,6 +108,7 @@
           </a>
           <figcaption><p style="margin-top: 20px;">The next plot compares inference latency for the independent models. Qwen-7B is generally slightly faster than the Llama-8B baseline, while Qwen-4B achieves substantially lower latency. OLMoE also provides low latency through its sparse execution with only 1B active parameters. Combined with the accuracy results, Qwen-4B offers a particularly promising alternative, improving both accuracy and latency over the baseline.</p></figcaption>
         </figure></div>
+        </details>
       </section>
       <section class="re-detail-columns" aria-labelledby="design-principles-heading">
         <h3 id="design-principles-heading">Design principles</h3>
