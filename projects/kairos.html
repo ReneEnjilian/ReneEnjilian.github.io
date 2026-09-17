@@ -167,6 +167,51 @@
             </tbody>
           </table>
         </div>
+        <details id="sleep-mechanisms" class="re-benchmark-disclosure">
+          <summary>
+            <h4 id="sleep-mechanisms-heading">Sleep mechanisms</h4>
+            <span class="re-benchmark-toggle" aria-hidden="true"></span>
+          </summary>
+          <div class="re-benchmark-body">
+            <figure style="margin: 0;">
+              <a href="../assets/pdf/llama_sleep_latency.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open sleep latency plot as PDF" style="display: block;">
+                <img src="../assets/images/llama_sleep_latency.svg" alt="Sleep latency for 1B, 3B, and 8B Llama models, comparing standard L1 sleep, L2 sleep, and L1 sleep with weights already in CPU memory." width="1400" height="683" style="display: block; width: 100%; max-width: 560px; height: auto; margin: 0;" loading="lazy">
+              </a>
+              <figcaption><p style="margin-top: 20px;">Standard L1 sleep becomes more expensive as model size increases because weights must be copied from GPU to CPU memory. Retaining a persistent CPU copy avoids this transfer, reducing sleep latency for the 8B model from 1.36 s to 0.28 s—close to the cost of L2 sleep, while preserving the weights in memory.</p></figcaption>
+            </figure>
+          </div>
+        </details>
+        <details id="wake-up-mechanisms" class="re-benchmark-disclosure">
+          <summary>
+            <h4 id="wake-up-mechanisms-heading">Wake-up mechanisms</h4>
+            <span class="re-benchmark-toggle" aria-hidden="true"></span>
+          </summary>
+          <div class="re-benchmark-body">
+            <figure style="margin: 0;">
+              <a href="../assets/pdf/llama_wake_up_latency.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open wake-up latency plot as PDF" style="display: block;">
+                <img src="../assets/images/llama_wake_up_latency.svg" alt="Wake-up latency for 1B, 3B, and 8B Llama models, comparing CPU, persistent CPU, disk, and the stacked prefetch and prefetched CPU wake-up phases." width="1400" height="628" style="display: block; width: 100%; max-width: 560px; height: auto; margin: 0;" loading="lazy">
+              </a>
+              <figcaption><p style="margin-top: 20px;">Restoring weights from CPU memory is substantially faster than loading them from disk, taking 1.41 s rather than 3.54 s for the 8B model. Prefetching separates disk loading from the subsequent GPU transfer, allowing weights to be loaded before the model is needed. Although the combined duration is slightly higher, only the remaining 1.45 s GPU transfer stays on the switching path.</p></figcaption>
+            </figure>
+          </div>
+        </details>
+        <details id="eviction" class="re-benchmark-disclosure">
+          <summary>
+            <h4 id="eviction-heading">Eviction</h4>
+            <span class="re-benchmark-toggle" aria-hidden="true"></span>
+          </summary>
+          <div class="re-benchmark-body">
+            <figure style="margin: 0;">
+              <a href="../assets/pdf/llama_evict_latency.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open eviction latency plot as PDF" style="display: block;">
+                <img src="../assets/images/llama_evict_latency.svg" alt="Eviction latency for 1B, 3B, and 8B Llama models on a logarithmic scale, comparing direct eviction with CPU wake-up followed by L2 sleep." width="1400" height="705" style="display: block; width: 100%; max-width: 560px; height: auto; margin: 0;" loading="lazy">
+              </a>
+              <a href="../assets/pdf/llama_evict_transient_gpu_memory.pdf" target="_blank" rel="noopener noreferrer" aria-label="Open eviction GPU memory plot as PDF" style="display: block; margin-top: 32px;">
+                <img src="../assets/images/llama_evict_transient_gpu_memory.svg" alt="Peak GPU memory during eviction for 1B, 3B, and 8B Llama models, comparing direct eviction with wake-up followed by L2 sleep. For the 8B model, the peaks are 0.9 GiB and 21.4 GiB, respectively." width="1400" height="729" style="display: block; width: 100%; max-width: 560px; height: auto; margin: 0;" loading="lazy">
+              </a>
+              <figcaption><p style="margin-top: 20px;">Direct eviction releases CPU-resident weights while retaining the existing checkpoint on disk. It avoids the intermediate GPU activation required by the wake-up-and-sleep workaround. For the 8B model, this reduces eviction latency from 1.68 s to approximately 1 ms and peak GPU memory from 21.4 GiB to 0.9 GiB, allowing eviction even when the GPU cannot accommodate the model.</p></figcaption>
+            </figure>
+          </div>
+        </details>
       </section>
       <nav class="re-next-project" aria-label="Project navigation"><a href="../index.html#re-work">All work</a><a href="systemds.html">Apache SystemDS <span aria-hidden="true">→</span></a></nav>
     </main>
