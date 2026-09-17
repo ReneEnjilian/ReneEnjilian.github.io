@@ -167,15 +167,16 @@
             </tbody>
           </table>
           <table class="re-models-table" style="margin-top: 32px;">
-            <caption>Models used in the transition benchmarks</caption>
-            <colgroup><col style="width: 70%;"><col style="width: 30%;"></colgroup>
-            <thead><tr><th scope="col">Model</th><th scope="col">Parameters</th></tr></thead>
+            <caption>Llama 3 models across three different sizes.</caption>
+            <colgroup><col style="width: 50%;"><col style="width: 22%;"><col style="width: 28%;"></colgroup>
+            <thead><tr><th scope="col">Model</th><th scope="col">Parameters</th><th scope="col">GPU footprint (MiB)</th></tr></thead>
             <tbody>
-              <tr><th scope="row">Llama-3.2-1B-Instruct</th><td>1B</td></tr>
-              <tr><th scope="row">Llama-3.2-3B-Instruct</th><td>3B</td></tr>
-              <tr><th scope="row">Llama-3.1-8B-Instruct</th><td>8B</td></tr>
+              <tr><th scope="row">Llama-3.2-1B-Instruct</th><td>1B</td><td>3,670</td></tr>
+              <tr><th scope="row">Llama-3.2-3B-Instruct</th><td>3B</td><td>9,954</td></tr>
+              <tr><th scope="row">Llama-3.1-8B-Instruct</th><td>8B</td><td>21,894</td></tr>
             </tbody>
           </table>
+          <p style="margin-top: 12px; font-size: 14px;">We assume a <code>gpu_factor</code> of 1.3 to realistically accommodate for KV cache and activations besides model weights.</p>
           <p style="margin-top: 20px;">The results below use these models to compare sleep, wake-up, and eviction operations.</p>
         </div>
         <details id="sleep-mechanisms" class="re-benchmark-disclosure">
