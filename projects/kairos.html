@@ -345,6 +345,45 @@
             </div>
           </details>
         </section>
+        <section id="evaluation-planning" class="re-detail-columns re-reconfiguration-step" aria-labelledby="evaluation-planning-heading">
+          <h4 id="evaluation-planning-heading">Evaluation planning</h4>
+          <div class="re-reconfiguration-content">
+            <p>Evaluation planning determines how models are evaluated on sampled requests to update the accuracy and latency statistics used in subsequent reconfiguration rounds. It separates the selection of evaluation batches from the commands needed to make those models available on the GPU.</p>
+            <p>The planner first schedules evaluations for unevaluated models that are already GPU-resident. If none are available, it selects a batch of remaining models that can fit on the GPU together and constructs a temporary target placement. The reconfiguration planner then generates the commands required to reach that placement. This process repeats until all models selected for evaluation have been covered.</p>
+            <p>During the initial monitoring round, the base model has already produced the reference outputs while serving the sampled requests. Kairos therefore marks it as evaluated and schedules evaluations only for the remaining model variants.</p>
+          </div>
+          <details id="evaluation-planning-algorithm" class="re-benchmark-disclosure re-algorithm-disclosure">
+            <summary>
+              <h5>Evaluation planning algorithm</h5>
+              <span class="re-benchmark-toggle" aria-hidden="true"></span>
+            </summary>
+            <div class="re-benchmark-body">
+              <div class="re-algorithm" role="region" aria-label="Evaluation planning pseudocode" tabindex="0">
+                <p class="re-algorithm-io"><strong>Input</strong> Current state <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi></math>, model set <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>ℳ</mi></math>, sampled requests <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>𝒮</mi></math>, transition set <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>𝒯</mi></math>, initially evaluated models <math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>ℰ</mi><mn>0</mn></msub></math></p>
+                <p class="re-algorithm-io"><strong>Output</strong> Evaluation command sequence <math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>C</mi><mtext>eval</mtext></msub></math></p>
+                <ol class="re-algorithm-lines">
+                  <li style="--depth: 0;"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>C</mi><mtext>eval</mtext></msub><mo>←</mo><mrow><mo stretchy="false">(</mo><mo stretchy="false">)</mo></mrow></math></li>
+                  <li style="--depth: 0;"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>ℰ</mi><mo>←</mo><msub><mi>ℰ</mi><mn>0</mn></msub></math></li>
+                  <li style="--depth: 0;"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>𝒰</mi><mo>←</mo><mi>ℳ</mi><mo>∖</mo><mi>ℰ</mi></math></li>
+                  <li style="--depth: 0;"><strong>while</strong> <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>𝒰</mi><mo>≠</mo><mo>∅</mo></math> <strong>do</strong></li>
+                  <li style="--depth: 1;"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>ℬ</mi><mo>←</mo><mi>𝒰</mi><mo>∩</mo><mrow><mi mathvariant="normal">GPUModels</mi><mrow><mo stretchy="false">(</mo><mi>σ</mi><mo stretchy="false">)</mo></mrow></mrow></math></li>
+                  <li style="--depth: 1;"><strong>if</strong> <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>ℬ</mi><mo>=</mo><mo>∅</mo></math> <strong>then</strong></li>
+                  <li style="--depth: 2;"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>ℬ</mi><mo>←</mo><mrow><mi mathvariant="normal">SelectEvaluationBatch</mi><mrow><mo stretchy="false">(</mo><mi>σ</mi><mo>,</mo><mi>𝒰</mi><mo stretchy="false">)</mo></mrow></mrow></math></li>
+                  <li style="--depth: 2;"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>p</mi><mi>ℬ</mi></msub><mo>←</mo><mrow><mi mathvariant="normal">TemporaryPlacement</mi><mrow><mo stretchy="false">(</mo><mi>σ</mi><mo>,</mo><mi>ℬ</mi><mo stretchy="false">)</mo></mrow></mrow></math></li>
+                  <li style="--depth: 2;"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>C</mi><mtext>move</mtext></msub><mo>←</mo><mrow><mi mathvariant="normal">PlanPlacement</mi><mrow><mo stretchy="false">(</mo><mi>σ</mi><mo>,</mo><msub><mi>p</mi><mi>ℬ</mi></msub><mo>,</mo><mi>𝒯</mi><mo stretchy="false">)</mo></mrow></mrow></math></li>
+                  <li style="--depth: 2;"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>C</mi><mtext>eval</mtext></msub><mo>←</mo><msub><mi>C</mi><mtext>eval</mtext></msub><mo>∘</mo><msub><mi>C</mi><mtext>move</mtext></msub></math></li>
+                  <li style="--depth: 2;"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>σ</mi><mo>←</mo><mrow><mi mathvariant="normal">Apply</mi><mrow><mo stretchy="false">(</mo><msub><mi>C</mi><mtext>move</mtext></msub><mo>,</mo><mi>σ</mi><mo stretchy="false">)</mo></mrow></mrow></math></li>
+                  <li style="--depth: 1;"><strong>end if</strong></li>
+                  <li style="--depth: 1;"><math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>C</mi><mtext>eval</mtext></msub><mo>←</mo><msub><mi>C</mi><mtext>eval</mtext></msub><mo>∘</mo><mrow><mo stretchy="false">(</mo><mrow><mi mathvariant="normal">Evaluate</mi><mrow><mo stretchy="false">(</mo><mi>ℬ</mi><mo>,</mo><mi>𝒮</mi><mo stretchy="false">)</mo></mrow></mrow><mo stretchy="false">)</mo></mrow></math></li>
+                  <li style="--depth: 1;"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>ℰ</mi><mo>←</mo><mi>ℰ</mi><mo>∪</mo><mi>ℬ</mi></math></li>
+                  <li style="--depth: 1;"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>𝒰</mi><mo>←</mo><mi>ℳ</mi><mo>∖</mo><mi>ℰ</mi></math></li>
+                  <li style="--depth: 0;"><strong>end while</strong></li>
+                  <li style="--depth: 0;"><strong>return</strong> <math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>C</mi><mtext>eval</mtext></msub></math></li>
+                </ol>
+              </div>
+            </div>
+          </details>
+        </section>
       </section>
       <nav class="re-next-project" aria-label="Project navigation"><a href="../index.html#re-work">All work</a><a href="systemds.html">Apache SystemDS <span aria-hidden="true">→</span></a></nav>
     </main>
