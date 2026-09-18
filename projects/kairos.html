@@ -105,7 +105,7 @@
       <p class="re-eyebrow">Master's thesis / TU Berlin / 2026</p>
       <h1>Kairos<span>.</span></h1>
       <p class="re-detail-intro" style="margin-top:24px">Workload-aware and reconfigurable LLM serving.</p>
-      <div class="re-tags"><span>vLLM</span><span>Model scheduling</span><span>GPU memory</span></div>
+      <div class="re-tags"><span>vLLM</span><span>Adaptive serving</span><span>Model offloading</span></div>
       <section class="re-detail-columns"><h3>Problem and goal</h3><div>
         <p>Different models and their quantized variants offer different trade-offs between accuracy, latency, and memory consumption. Models with fewer parameters or lower numerical precision may reduce latency and GPU memory pressure, but can also affect output quality. In the standard setup of serving systems such as vLLM, SGLang, and TensorRT-LLM, the model and its hardware placement are configured ahead of time. These systems support limited forms of adaptation during serving but do not automatically select alternative models based on accuracy and latency objectives. However, request workloads, serving objectives, and resource pressure may change during runtime.</p>
         <p>A serving system should therefore determine which model should answer requests given accuracy and latency constraints, where model weights should reside, and when adaptation should take place while minimizing interference with ongoing serving.</p>
