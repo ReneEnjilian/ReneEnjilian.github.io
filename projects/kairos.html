@@ -50,6 +50,17 @@
     #model-scoring .re-equation math, #model-placement .re-equation math { margin-inline: auto; }
     #runtime-reconfiguration .re-equation mtd { padding: .4em .5em; text-align: left; }
     #runtime-reconfiguration .re-equation:focus-visible { outline: 2px solid var(--re-blue); outline-offset: 4px; }
+
+    #runtime-reconfiguration .re-algorithm-disclosure > summary h5 { margin: 0; font: 400 12px/1.5 'IBM Plex Mono', monospace; }
+    #runtime-reconfiguration .re-algorithm { max-width: 100%; padding: 16px 0; overflow-x: auto; border-top: 1px solid var(--re-rule); border-bottom: 1px solid var(--re-rule); color: var(--re-ink); }
+    #runtime-reconfiguration .re-algorithm strong { font-weight: 500; }
+    #runtime-reconfiguration .re-algorithm-io { margin: 0; font-size: 14px; line-height: 1.75; }
+    #runtime-reconfiguration .re-algorithm-io + .re-algorithm-io { margin-top: 6px; }
+    #runtime-reconfiguration .re-algorithm-lines { width: max-content; min-width: 100%; box-sizing: border-box; margin: 16px 0 0; padding-inline-start: 2.5em; padding-inline-end: 8px; font-size: 14px; line-height: 1.9; }
+    #runtime-reconfiguration .re-algorithm-lines > li { margin: 0; padding-inline-start: calc(var(--depth, 0) * 1.25em); white-space: nowrap; }
+    #runtime-reconfiguration .re-algorithm-lines > li::marker { color: var(--re-muted); font: 400 11px/1.9 'IBM Plex Mono', monospace; }
+    #runtime-reconfiguration .re-algorithm math { font-size: 16px; }
+    #runtime-reconfiguration .re-algorithm:focus-visible { outline: 2px solid var(--re-blue); outline-offset: 4px; }
   </style>
 </head>
 <body>
@@ -294,6 +305,45 @@
             <p>Here, <math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>x</mi><mi>m</mi></msub></math> indicates whether a model is selected for GPU placement, <math xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>μ</mi><mtext>GPU</mtext></msub><mo stretchy="false">(</mo><mi>m</mi><mo stretchy="false">)</mo></mrow></math> denotes its GPU memory requirement, and <math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>B</mi><mtext>GPU</mtext></msub></math> is the capacity remaining after placing the target active model.</p>
             <p>The same procedure is then applied to the remaining models using the CPU memory budget. Models selected in this step remain in host memory, while all others are assigned to disk. This separates the serving decision from the placement of alternatives, using available memory to keep high-scoring models close to the GPU.</p>
           </div>
+        </section>
+        <section id="reconfiguration-planning" class="re-detail-columns re-reconfiguration-step" aria-labelledby="reconfiguration-planning-heading">
+          <h4 id="reconfiguration-planning-heading">Reconfiguration planning</h4>
+          <div class="re-reconfiguration-content">
+            <p>The placement step determines the target configuration, while reconfiguration planning determines how to reach it. Kairos represents this problem as a graph search, where each node describes a valid model placement and each edge corresponds to a legal placement command.</p>
+            <p>Starting from the current configuration, Kairos uses breadth-first search to find a sequence with the minimum number of placement commands. A command is considered only if its preconditions are satisfied and the resulting placement respects both CPU and GPU memory limits. This ensures that every intermediate state remains feasible throughout the reconfiguration.</p>
+            <p>The sequence ends with a <code>SetActive</code> command that redirects future requests to the selected model once the target placement has been reached. This command updates request routing without moving model weights.</p>
+          </div>
+          <details id="reconfiguration-planning-algorithm" class="re-benchmark-disclosure re-algorithm-disclosure">
+            <summary>
+              <h5>Reconfiguration planning algorithm</h5>
+              <span class="re-benchmark-toggle" aria-hidden="true"></span>
+            </summary>
+            <div class="re-benchmark-body">
+              <div class="re-algorithm" role="region" aria-label="Reconfiguration planning pseudocode" tabindex="0">
+                <p class="re-algorithm-io"><strong>Input</strong> Current state <math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>σ</mi><mn>0</mn></msub></math>, target placement <math xmlns="http://www.w3.org/1998/Math/MathML"><msup><mi>p</mi><mo>⋆</mo></msup></math>, target active model <math xmlns="http://www.w3.org/1998/Math/MathML"><msup><mi>m</mi><mo>⋆</mo></msup></math>, transition set <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>𝒯</mi></math></p>
+                <p class="re-algorithm-io"><strong>Output</strong> Command sequence <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>C</mi></math></p>
+                <ol class="re-algorithm-lines">
+                  <li style="--depth: 0;"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>Q</mi><mo>←</mo></math> empty FIFO queue</li>
+                  <li style="--depth: 0;"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>V</mi><mo>←</mo><mrow><mo stretchy="false">{</mo><msub><mi>σ</mi><mn>0</mn></msub><mo stretchy="false">}</mo></mrow></math></li>
+                  <li style="--depth: 0;"><math xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi mathvariant="normal">Push</mi><mrow><mo stretchy="false">(</mo><mi>Q</mi><mo>,</mo><mrow><mo stretchy="false">(</mo><msub><mi>σ</mi><mn>0</mn></msub><mo>,</mo><mrow><mo stretchy="false">(</mo><mo stretchy="false">)</mo></mrow><mo stretchy="false">)</mo></mrow><mo stretchy="false">)</mo></mrow></mrow></math></li>
+                  <li style="--depth: 0;"><strong>while</strong> <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>Q</mi></math> is not empty <strong>do</strong></li>
+                  <li style="--depth: 1;"><math xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><mi>σ</mi><mo>,</mo><mi>C</mi><mo stretchy="false">)</mo></mrow><mo>←</mo><mrow><mi mathvariant="normal">Pop</mi><mrow><mo stretchy="false">(</mo><mi>Q</mi><mo stretchy="false">)</mo></mrow></mrow></math></li>
+                  <li style="--depth: 1;"><strong>if</strong> <math xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi mathvariant="normal">placement</mi><mrow><mo stretchy="false">(</mo><mi>σ</mi><mo stretchy="false">)</mo></mrow></mrow><mo>=</mo><msup><mi>p</mi><mo>⋆</mo></msup></math> <strong>then</strong></li>
+                  <li style="--depth: 2;"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>C</mi><mo>←</mo><mi>C</mi><mo>∘</mo><mrow><mo stretchy="false">(</mo><mrow><mi mathvariant="normal">SetActive</mi><mrow><mo stretchy="false">(</mo><msup><mi>m</mi><mo>⋆</mo></msup><mo stretchy="false">)</mo></mrow></mrow><mo stretchy="false">)</mo></mrow></math></li>
+                  <li style="--depth: 2;"><strong>return</strong> <math xmlns="http://www.w3.org/1998/Math/MathML"><mi>C</mi></math></li>
+                  <li style="--depth: 1;"><strong>end if</strong></li>
+                  <li style="--depth: 1;"><strong>for all</strong> <math xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mo stretchy="false">(</mo><msup><mi>σ</mi><mo>′</mo></msup><mo>,</mo><mi>c</mi><mo stretchy="false">)</mo></mrow><mo>∈</mo><mrow><mi mathvariant="normal">Successors</mi><mrow><mo stretchy="false">(</mo><mi>σ</mi><mo>,</mo><mi>𝒯</mi><mo stretchy="false">)</mo></mrow></mrow></math> <strong>do</strong></li>
+                  <li style="--depth: 2;"><strong>if</strong> <math xmlns="http://www.w3.org/1998/Math/MathML"><msup><mi>σ</mi><mo>′</mo></msup><mo>∉</mo><mi>V</mi></math> <strong>then</strong></li>
+                  <li style="--depth: 3;"><math xmlns="http://www.w3.org/1998/Math/MathML"><mi>V</mi><mo>←</mo><mi>V</mi><mo>∪</mo><mrow><mo stretchy="false">{</mo><msup><mi>σ</mi><mo>′</mo></msup><mo stretchy="false">}</mo></mrow></math></li>
+                  <li style="--depth: 3;"><math xmlns="http://www.w3.org/1998/Math/MathML"><mrow><mi mathvariant="normal">Push</mi><mrow><mo stretchy="false">(</mo><mi>Q</mi><mo>,</mo><mrow><mo stretchy="false">(</mo><msup><mi>σ</mi><mo>′</mo></msup><mo>,</mo><mi>C</mi><mo>∘</mo><mrow><mo stretchy="false">(</mo><mi>c</mi><mo stretchy="false">)</mo></mrow><mo stretchy="false">)</mo></mrow><mo stretchy="false">)</mo></mrow></mrow></math></li>
+                  <li style="--depth: 2;"><strong>end if</strong></li>
+                  <li style="--depth: 1;"><strong>end for</strong></li>
+                  <li style="--depth: 0;"><strong>end while</strong></li>
+                  <li style="--depth: 0;"><strong>return</strong> failure</li>
+                </ol>
+              </div>
+            </div>
+          </details>
         </section>
       </section>
       <nav class="re-next-project" aria-label="Project navigation"><a href="../index.html#re-work">All work</a><a href="systemds.html">Apache SystemDS <span aria-hidden="true">→</span></a></nav>
