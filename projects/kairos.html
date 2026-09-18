@@ -61,6 +61,11 @@
     #runtime-reconfiguration .re-algorithm-lines > li::marker { color: var(--re-muted); font: 400 11px/1.9 'IBM Plex Mono', monospace; }
     #runtime-reconfiguration .re-algorithm math { font-size: 16px; }
     #runtime-reconfiguration .re-algorithm:focus-visible { outline: 2px solid var(--re-blue); outline-offset: 4px; }
+
+    #runtime-reconfiguration .re-reconfiguration-closing { grid-column: 1 / -1; min-width: 0; max-width: 560px; margin-left: 185px; }
+    @media (max-width: 540px) {
+      #runtime-reconfiguration .re-reconfiguration-closing { margin-left: 0; }
+    }
   </style>
 </head>
 <body>
@@ -384,6 +389,9 @@
             </div>
           </details>
         </section>
+        <div class="re-reconfiguration-closing">
+          <p>Together, these stages produce a command sequence that combines model placement changes, request routing updates, and evaluations to inform subsequent reconfiguration rounds. Kairos passes this sequence to the scheduler, which coordinates its execution with ongoing request serving to minimize interference.</p>
+        </div>
       </section>
       <nav class="re-next-project" aria-label="Project navigation"><a href="../index.html#re-work">All work</a><a href="systemds.html">Apache SystemDS <span aria-hidden="true">→</span></a></nav>
     </main>
