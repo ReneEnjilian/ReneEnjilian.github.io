@@ -433,7 +433,7 @@
         <section id="scheduling-decision" class="re-detail-columns re-scheduling-step" aria-labelledby="scheduling-decision-heading">
           <h4 id="scheduling-decision-heading">Scheduling decision</h4>
           <div class="re-scheduling-content">
-            <p>The scheduler sums the predicted request counts over the forecasting window. It considers the window idle when this total does not exceed the configured threshold.</p>
+            <p>The scheduler sums the predicted request counts over the forecasting window. It considers the window idle when this total does not exceed the configured threshold:</p>
             <div class="re-equation" role="region" aria-label="Predicted idle window condition" tabindex="0">
               <math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msub><mover accent="true"><mi>X</mi><mo>^</mo></mover><mrow><mi>t</mi><mo>,</mo><mi>W</mi></mrow></msub><mo>=</mo><munderover><mo largeop="true" movablelimits="false">∑</mo><mrow><mi>h</mi><mo>=</mo><mn>1</mn></mrow><mi>W</mi></munderover><msub><mover accent="true"><mi>x</mi><mo>^</mo></mover><mrow><mi>t</mi><mo>+</mo><mi>h</mi></mrow></msub><mo>≤</mo><mi>θ</mi><mo>.</mo></mrow></math>
             </div>
