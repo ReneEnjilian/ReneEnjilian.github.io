@@ -279,6 +279,21 @@
             <p>The resulting scores guide the subsequent placement step, which selects the active model and determines where the remaining models should reside.</p>
           </div>
         </section>
+        <section id="model-placement" class="re-detail-columns re-reconfiguration-step" aria-labelledby="model-placement-heading">
+          <h4 id="model-placement-heading">Model placement</h4>
+          <div class="re-reconfiguration-content">
+            <p>Kairos uses the model scores to determine a target placement across GPU memory, host memory, and disk. The highest-scoring model is selected as the target active model and assigned to GPU memory,</p>
+            <div class="re-equation" role="region" aria-label="Target active model equation" tabindex="0">
+              <math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mrow><msup><mi>m</mi><mo>⋆</mo></msup><mo>=</mo><munder><mrow><mi mathvariant="normal">arg</mi><mspace width="0.167em"/><mi mathvariant="normal">max</mi></mrow><mrow><mi>m</mi><mo>∈</mo><mi>M</mi></mrow></munder><mspace width="0.25em"/><mrow><mi mathvariant="normal">score</mi><mo stretchy="false">(</mo><mi>m</mi><mo stretchy="false">)</mo></mrow><mo>.</mo></mrow></math>
+            </div>
+            <p>The remaining GPU capacity is used to retain useful alternative models, reducing the cost of future reconfiguration and evaluation. Kairos formulates this placement as a 0/1 knapsack problem, selecting the combination of models with the highest total score that fits within the remaining memory budget,</p>
+            <div class="re-equation" role="region" aria-label="GPU model placement optimization" tabindex="0">
+              <math xmlns="http://www.w3.org/1998/Math/MathML" display="block"><mtable columnalign="right left"><mtr><mtd style="text-align: right;"><munder><mo movablelimits="false">max</mo><mrow><msub><mi>x</mi><mi>m</mi></msub><mo>∈</mo><mo stretchy="false">{</mo><mn>0</mn><mo>,</mo><mn>1</mn><mo stretchy="false">}</mo></mrow></munder></mtd><mtd><mrow><munder><mo largeop="true" movablelimits="false">∑</mo><mrow><mi>m</mi><mo>∈</mo><mi>M</mi><mo>∖</mo><mo stretchy="false">{</mo><msup><mi>m</mi><mo>⋆</mo></msup><mo stretchy="false">}</mo></mrow></munder><msub><mi>x</mi><mi>m</mi></msub><mspace width="0.167em"/><mrow><mi mathvariant="normal">score</mi><mo stretchy="false">(</mo><mi>m</mi><mo stretchy="false">)</mo></mrow></mrow></mtd></mtr><mtr><mtd style="text-align: right;"><mtext>subject to</mtext></mtd><mtd><mrow><munder><mo largeop="true" movablelimits="false">∑</mo><mrow><mi>m</mi><mo>∈</mo><mi>M</mi><mo>∖</mo><mo stretchy="false">{</mo><msup><mi>m</mi><mo>⋆</mo></msup><mo stretchy="false">}</mo></mrow></munder><msub><mi>x</mi><mi>m</mi></msub><mspace width="0.167em"/><mrow><msub><mi>μ</mi><mtext>GPU</mtext></msub><mo stretchy="false">(</mo><mi>m</mi><mo stretchy="false">)</mo></mrow><mo>≤</mo><msub><mi>B</mi><mtext>GPU</mtext></msub><mo>.</mo></mrow></mtd></mtr></mtable></math>
+            </div>
+            <p>Here, <math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>x</mi><mi>m</mi></msub></math> indicates whether a model is selected for GPU placement, <math xmlns="http://www.w3.org/1998/Math/MathML"><mrow><msub><mi>μ</mi><mtext>GPU</mtext></msub><mo stretchy="false">(</mo><mi>m</mi><mo stretchy="false">)</mo></mrow></math> denotes its GPU memory requirement, and <math xmlns="http://www.w3.org/1998/Math/MathML"><msub><mi>B</mi><mtext>GPU</mtext></msub></math> is the capacity remaining after placing the target active model.</p>
+            <p>The same procedure is then applied to the remaining models using the CPU memory budget. Models selected in this step remain in host memory, while all others are assigned to disk. This separates the serving decision from the placement of alternatives, using available memory to keep high-scoring models close to the GPU.</p>
+          </div>
+        </section>
       </section>
       <nav class="re-next-project" aria-label="Project navigation"><a href="../index.html#re-work">All work</a><a href="systemds.html">Apache SystemDS <span aria-hidden="true">→</span></a></nav>
     </main>
