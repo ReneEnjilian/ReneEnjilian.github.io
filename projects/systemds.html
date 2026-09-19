@@ -3,7 +3,7 @@
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Selected Apache SystemDS contributions by René Enjilian: GPU backend modernization, CUDA integration, sparse matrices, and compiler rewrites.">
+  <meta name="description" content="Selected Apache SystemDS contributions by René Enjilian: GPU backend modernization, Java–CUDA bindings, sparse matrices, SLAB, machine learning algorithms, and compiler rewrites.">
   <link rel="canonical" href="https://reneenjilian.github.io/projects/systemds.html">
   <meta name="theme-color" content="#f8f7f3">
   <title>Apache SystemDS — René Enjilian</title>
@@ -12,6 +12,41 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500&amp;family=DM+Serif+Display:ital@0;1&amp;family=IBM+Plex+Mono:wght@400;500&amp;display=swap">
   <link rel="stylesheet" href="../assets/css/styles.css">
+
+  <style>
+    .re-systemds-detail .re-systemds-overview { max-width: 680px; margin: 30px 0 44px; }
+    .re-systemds-detail .re-systemds-overview p { color: var(--re-muted); font-size: 16px; line-height: 1.85; }
+    .re-systemds-detail .re-systemds-overview p + p { margin-top: 16px; }
+    .re-systemds-detail .re-systemds-resources { display: flex; flex-wrap: wrap; gap: 4px 24px; margin-top: 16px; }
+    .re-systemds-detail .re-project-open { gap: 6px; margin-top: 0; }
+    .re-systemds-detail .re-contribution { display: grid; grid-template-columns: 220px minmax(0, 560px); gap: 48px; padding: 38px 0; border-top: 1px solid var(--re-rule); scroll-margin-top: 24px; }
+    .re-systemds-detail .re-contribution-heading { min-width: 0; }
+    .re-systemds-detail .re-contribution-number { margin-bottom: 12px; color: #536946; font: 400 12px/1.5 'IBM Plex Mono', monospace; }
+    .re-systemds-detail .re-contribution h2 { margin: 0; font: 400 28px/1.25 'DM Serif Display', Georgia, serif; letter-spacing: -.45px; }
+    .re-systemds-detail .re-contribution-copy { min-width: 0; }
+    .re-systemds-detail .re-contribution-copy p { color: var(--re-muted); font-size: 16px; line-height: 1.85; }
+    .re-systemds-detail .re-contribution-copy p + p { margin-top: 16px; }
+    .re-systemds-detail .re-contribution-links { display: flex; flex-wrap: wrap; gap: 2px 22px; list-style: none; margin: 18px 0 0; padding: 0; }
+    .re-systemds-detail .re-contribution-links li { min-width: 0; max-width: 100%; }
+    .re-systemds-detail .re-contribution-links a { max-width: 100%; }
+    .re-systemds-detail .re-contribution-links a > span:first-child { overflow-wrap: anywhere; }
+    .re-systemds-detail .re-contribution-links a > span[aria-hidden] { flex-shrink: 0; }
+    .re-systemds-detail .re-contribution-links .re-pr-number { color: var(--re-muted); font: 400 12px/1.5 'IBM Plex Mono', monospace; white-space: nowrap; }
+    .re-systemds-detail .re-next-project { margin-top: 0; }
+    @media (max-width: 740px) {
+      .re-systemds-detail .re-contribution { grid-template-columns: 180px minmax(0, 1fr); gap: 28px; }
+      .re-systemds-detail .re-contribution h2 { font-size: 25px; }
+    }
+    @media (max-width: 620px) {
+      .re-systemds-detail .re-contribution { grid-template-columns: minmax(0, 1fr); gap: 20px; padding: 30px 0; }
+      .re-systemds-detail .re-contribution h2 { max-width: 380px; font-size: 28px; }
+      .re-systemds-detail .re-contribution-number { margin-bottom: 8px; }
+      .re-systemds-detail .re-systemds-overview { margin-bottom: 32px; }
+    }
+    @media print {
+      .re-systemds-detail .re-contribution { break-inside: avoid; }
+    }
+  </style>
 </head>
 <body>
 <div class="portfolio">
@@ -29,32 +64,110 @@
         <a href="../cv.html">CV</a>
       </nav>
     </header>
-    <main id="main-content" class="re-detail">
+    <main id="main-content" class="re-detail re-systemds-detail">
       <a class="re-back" href="../index.html#re-work">← Back to selected work</a>
       <p class="re-eyebrow">Open source / Apache Software Foundation</p>
       <h1>Apache SystemDS<span>.</span></h1>
-      <p class="re-detail-intro" style="margin-top:24px">Systems engineering across the compiler, runtime, and GPU backend.</p>
+      <p class="re-detail-intro" style="margin-top:24px">Selected contributions to the compiler, runtime, and GPU backend.</p>
       <div class="re-tags"><span>CUDA</span><span>Java / JNI</span><span>Sparse matrices</span></div>
-      <div class="re-detail-art"><div class="re-art re-systemds-art" role="img" aria-label="Conceptual illustration of sparse matrix operations executed on a GPU">
-            <div class="re-art-heading">SYSTEMDS / GPU COMPUTING</div>
-            <div class="re-matrix-composition" aria-hidden="true">
-              <div class="re-matrix">
-                <span class="re-nonzero"></span><span></span><span></span><span class="re-nonzero"></span><span></span><span></span>
-                <span></span><span class="re-nonzero"></span><span></span><span></span><span></span><span class="re-nonzero"></span>
-                <span></span><span></span><span class="re-nonzero"></span><span></span><span class="re-nonzero"></span><span></span>
-                <span class="re-nonzero"></span><span></span><span></span><span class="re-nonzero"></span><span></span><span></span>
-                <span></span><span></span><span class="re-nonzero"></span><span></span><span class="re-nonzero"></span><span></span>
-                <span></span><span class="re-nonzero"></span><span></span><span></span><span></span><span class="re-nonzero"></span>
-              </div>
-              <span class="re-matrix-arrow">→</span>
-              <div class="re-chip"><span>GPU</span><span>CUDA</span></div>
-            </div>
-            <div class="re-art-foot"><span>SPARSE MATRICES → GPU EXECUTION</span><span>ASF</span></div>
-          </div></div>
-      <section class="re-detail-columns"><h3>The project</h3><div><p>Apache SystemDS is a system for large-scale machine learning and data analysis. Its compiler and runtime translate high-level operations into execution plans across different backends.</p></div></section>
-<section class="re-detail-columns"><h3>My contributions</h3><div><ul><li>GPU backend modernization and integration with CUDA libraries.</li><li>Java–CUDA integration through JNI, including cuSPARSE and cuBLAS.</li><li>Sparse matrix formats and compiler DAG rewrites.</li></ul></div></section>
-<section class="re-detail-columns"><h3>Background</h3><div><p>I contributed to SystemDS during my research work at BIFOLD / TU Berlin and became an Apache SystemDS committer.</p></div></section>
-<section class="re-detail-columns"><h3>Explore</h3><div><p><a class="re-inline-link" href="https://systemds.apache.org/">Apache SystemDS</a> · <a class="re-inline-link" href="https://github.com/apache/systemds">Source code</a></p></div></section>
+
+      <div class="re-systemds-overview">
+        <p>Apache SystemDS is an open-source machine learning system covering the end-to-end data science lifecycle, from data preparation and model training to debugging and serving. It automatically compiles high-level programs into hybrid execution plans combining local, in-memory CPU operations and distributed computation on Apache Spark, with additional support for GPU acceleration and federated learning.</p>
+        <p>I am an Apache SystemDS committer. The contributions below grew out of my research work at BIFOLD / TU Berlin and span the compiler, runtime, GPU backend, and machine learning algorithms.</p>
+        <div class="re-systemds-resources">
+          <a class="re-project-open" href="https://systemds.apache.org/" target="_blank" rel="noopener noreferrer">Project website <span aria-hidden="true">↗</span></a>
+          <a class="re-project-open" href="https://github.com/apache/systemds" target="_blank" rel="noopener noreferrer">Source code <span aria-hidden="true">↗</span></a>
+        </div>
+      </div>
+
+      <section id="gpu-backend" class="re-contribution" aria-labelledby="gpu-backend-heading">
+        <div class="re-contribution-heading">
+          <p class="re-contribution-number" aria-hidden="true">01</p>
+          <h2 id="gpu-backend-heading">GPU backend modernization</h2>
+        </div>
+        <div class="re-contribution-copy">
+          <p>I upgraded the GPU backend from CUDA 10.2 to CUDA 12.6, updating its integration with cuSPARSE, cuBLAS, and cuDNN 9. This involved replacing deprecated APIs and adapting sparse matrix operations to the requirements of the newer libraries, including CSR transposition and sorting on the GPU.</p>
+          <p>These changes keep the backend compatible with the updated NVIDIA software stack. I also extended the GPU test suite to check the affected execution paths and make future regressions easier to diagnose.</p>
+          <ul class="re-contribution-links" aria-label="GPU backend modernization pull requests">
+            <li><a class="re-project-open" href="https://github.com/apache/systemds/pull/2271" target="_blank" rel="noopener noreferrer"><span>GPU backend upgrade <span class="re-pr-number">#2271</span></span><span aria-hidden="true">↗</span></a></li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="custom-bindings" class="re-contribution" aria-labelledby="custom-bindings-heading">
+        <div class="re-contribution-heading">
+          <p class="re-contribution-number" aria-hidden="true">02</p>
+          <h2 id="custom-bindings-heading">Custom Java–CUDA bindings</h2>
+        </div>
+        <div class="re-contribution-copy">
+          <p>I developed cuJava, a set of custom Java–CUDA bindings with matching C++/JNI implementations for the CUDA runtime, driver, cuBLAS, and cuSPARSE. The contribution includes native pointer handling and a CMake-based build that produces the corresponding shared libraries on Linux.</p>
+          <p>The bindings target the NVIDIA library calls used by SystemDS. Limiting this scope is intended to simplify maintenance and future CUDA upgrades, while giving the project direct control over its Java–CUDA integration.</p>
+          <ul class="re-contribution-links" aria-label="Custom Java–CUDA bindings pull requests">
+            <li><a class="re-project-open" href="https://github.com/apache/systemds/pull/2311" target="_blank" rel="noopener noreferrer"><span>cuJava bindings <span class="re-pr-number">#2311</span></span><span aria-hidden="true">↗</span></a></li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="sparse-matrices" class="re-contribution" aria-labelledby="sparse-matrices-heading">
+        <div class="re-contribution-heading">
+          <p class="re-contribution-number" aria-hidden="true">03</p>
+          <h2 id="sparse-matrices-heading">Sparse matrix representations</h2>
+        </div>
+        <div class="re-contribution-copy">
+          <p>I implemented Compressed Sparse Column (CSC) and Modified Compressed Sparse Column (MCSC) blocks, adding column-oriented representations alongside SystemDS’s existing row-oriented formats. These structures provide a basis for exploring operations that benefit from column access; the contributions focused on the representations and their tests, with deeper runtime integration left for subsequent work.</p>
+          <p>I also introduced an iterator over non-empty row indices for DCSR, MCSR, CSR, and COO blocks. It lets an operation skip entirely empty rows and provides a building block for investigating the benefits of these formats on sparse workloads.</p>
+          <ul class="re-contribution-links" aria-label="Sparse matrix representations pull requests">
+            <li><a class="re-project-open" href="https://github.com/apache/systemds/pull/2132" target="_blank" rel="noopener noreferrer"><span>CSC block <span class="re-pr-number">#2132</span></span><span aria-hidden="true">↗</span></a></li>
+            <li><a class="re-project-open" href="https://github.com/apache/systemds/pull/2040" target="_blank" rel="noopener noreferrer"><span>MCSC block <span class="re-pr-number">#2040</span></span><span aria-hidden="true">↗</span></a></li>
+            <li><a class="re-project-open" href="https://github.com/apache/systemds/pull/2005" target="_blank" rel="noopener noreferrer"><span>Non-empty row iterator <span class="re-pr-number">#2005</span></span><span aria-hidden="true">↗</span></a></li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="slab" class="re-contribution" aria-labelledby="slab-heading">
+        <div class="re-contribution-heading">
+          <p class="re-contribution-number" aria-hidden="true">04</p>
+          <h2 id="slab-heading">Scalable Linear Algebra Benchmark (SLAB)</h2>
+        </div>
+        <div class="re-contribution-copy">
+          <p>I implemented SLAB workloads for SystemDS across matrix operators, pipelines and decompositions, and linear algebra-based machine learning algorithms. The benchmark varies matrix dimensions and sparsity, with workloads for local execution and Apache Spark.</p>
+          <p>This provides a structured way to examine how performance changes with data characteristics and workload complexity. Running the benchmarks also exposed an issue in transpose-self matrix multiplication. The experiments reported in the PR used a single machine, including the Spark runs.</p>
+          <ul class="re-contribution-links" aria-label="Scalable Linear Algebra Benchmark (SLAB) pull requests">
+            <li><a class="re-project-open" href="https://github.com/apache/systemds/pull/2055" target="_blank" rel="noopener noreferrer"><span>SLAB benchmark <span class="re-pr-number">#2055</span></span><span aria-hidden="true">↗</span></a></li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="ml-algorithms" class="re-contribution" aria-labelledby="ml-algorithms-heading">
+        <div class="re-contribution-heading">
+          <p class="re-contribution-number" aria-hidden="true">05</p>
+          <h2 id="ml-algorithms-heading">Machine learning algorithms</h2>
+        </div>
+        <div class="re-contribution-copy">
+          <p>I implemented AdamW and Scaled Gradient Descent (ScaledGD) in DML, extending the optimization algorithms available in SystemDS. Expressing these methods in the system’s high-level language makes them available to machine learning pipelines through its compiler and runtime.</p>
+          <p>I also contributed the DML implementation of ADASYN (Adaptive Synthetic Sampling), which generates synthetic minority-class samples for imbalanced binary classification datasets. Together, these contributions extend the available methods for model optimization and training-data preparation.</p>
+          <ul class="re-contribution-links" aria-label="Machine learning algorithms pull requests">
+            <li><a class="re-project-open" href="https://github.com/apache/systemds/pull/2206" target="_blank" rel="noopener noreferrer"><span>AdamW and ScaledGD <span class="re-pr-number">#2206</span></span><span aria-hidden="true">↗</span></a></li>
+            <li><a class="re-project-open" href="https://github.com/apache/systemds/pull/2133" target="_blank" rel="noopener noreferrer"><span>ADASYN <span class="re-pr-number">#2133</span></span><span aria-hidden="true">↗</span></a></li>
+          </ul>
+        </div>
+      </section>
+
+      <section id="compiler-rewrites" class="re-contribution" aria-labelledby="compiler-rewrites-heading">
+        <div class="re-contribution-heading">
+          <p class="re-contribution-number" aria-hidden="true">06</p>
+          <h2 id="compiler-rewrites-heading">Compiler rewrites and validation</h2>
+        </div>
+        <div class="re-contribution-copy">
+          <p>I added algebraic rewrites that simplify high-level expressions before execution. A matrix distributivity rewrite factors out a shared matrix multiplication for dense matrices when the required matrix properties are known and the estimated number of floating-point operations decreases. Additional rewrites simplify negated comparisons by replacing them with their equivalent comparison operators.</p>
+          <p>I also expanded tests for static and dynamic algebraic simplifications and matrix multiplication chain optimizations. The tests exposed pattern-matching issues, missing transpose handling, and optimization passes that were not connected to the rewriter. This work helps establish whether optimizations are both correct and actually applied.</p>
+          <ul class="re-contribution-links" aria-label="Compiler rewrites and validation pull requests">
+            <li><a class="re-project-open" href="https://github.com/apache/systemds/pull/1986" target="_blank" rel="noopener noreferrer"><span>Matrix distributivity <span class="re-pr-number">#1986</span></span><span aria-hidden="true">↗</span></a></li>
+            <li><a class="re-project-open" href="https://github.com/apache/systemds/pull/1988" target="_blank" rel="noopener noreferrer"><span>Negated comparisons <span class="re-pr-number">#1988</span></span><span aria-hidden="true">↗</span></a></li>
+            <li><a class="re-project-open" href="https://github.com/apache/systemds/pull/2109" target="_blank" rel="noopener noreferrer"><span>Rewrite validation <span class="re-pr-number">#2109</span></span><span aria-hidden="true">↗</span></a></li>
+          </ul>
+        </div>
+      </section>
       <nav class="re-next-project" aria-label="Project navigation"><a href="../index.html#re-work">All work</a><a href="kairos.html">Kairos <span aria-hidden="true">→</span></a></nav>
     </main>
     <footer class="re-footer">
