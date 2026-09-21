@@ -28,7 +28,8 @@ The fonts are loaded from Google Fonts. If that service is unavailable or you ar
 | `writing.html` | Index of technical articles; currently an empty state |
 | `projects/kairos.html` | Kairos project page |
 | `projects/systemds.html` | Apache SystemDS project page |
-| `cv.html` | Short HTML overview of education and experience |
+| `cv.html` | Redirects existing CV page links to the PDF |
+| `assets/pdf/Rene_Enjilian_CV.pdf` | Current PDF CV; replace this file to update it |
 | `assets/css/styles.css` | Shared typography, colors, layout, and responsive styles |
 | `.nojekyll` | Tells GitHub Pages to serve the static files without Jekyll processing |
 
@@ -39,8 +40,7 @@ Each HTML page is editable directly. The header and footer are repeated across a
 This is the first implementation. The copy is an initial draft based on the project discussion. Review it before publishing.
 
 - Kairos and SystemDS have real, separately addressable pages.
-- The CV page is an HTML overview; it does not claim to download a PDF.
-- Add the current CV PDF and its download link when available.
+- CV navigation links open `assets/pdf/Rene_Enjilian_CV.pdf` directly. The former `cv.html` page redirects to the PDF and includes a fallback link.
 - The footer links to [ReneEnjilian on GitHub](https://github.com/ReneEnjilian). Email, thesis, and Kairos source links are awaiting the exact URLs.
 - The Writing page is for technical articles and explanations. It has no published articles yet. When an article is ready, give it its own HTML page and add its title, publication date, short description, and link to the Writing index, replacing the empty-state message.
 - Project graphics are conceptual illustrations, not benchmark results.
@@ -62,6 +62,6 @@ GitHub references: [Creating a GitHub Pages site](https://docs.github.com/en/pag
 - Shared styling adapts the layout for desktop and mobile screens.
 - All navigation uses native links; browser back, opening in a new tab, and direct page URLs work normally.
 - A skip link, visible keyboard focus, descriptive page titles, and reduced-motion support are included.
-- The CV has print styling.
+- Replace `assets/pdf/Rene_Enjilian_CV.pdf` to publish a new CV version without changing the navigation links.
 
-The copy is provisional. Review the content and add the current CV PDF and project links before treating the portfolio as final.
+The copy is provisional. Review the content and project links before treating the portfolio as final.
